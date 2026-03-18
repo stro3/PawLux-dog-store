@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawLux Email Popup</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F5E6CC;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page-content {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .page-content h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    color: #1B4332;
+    margin-bottom: 12px;
+  }
+  .page-content p {
+    color: #6B7280;
+    font-size: 16px;
+  }
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .popup-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+  .popup-box {
+    background-color: #FFFFFF;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 90%;
+    padding: 48px 36px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+  }
+  .popup-overlay.active .popup-box {
+    transform: translateY(0);
+  }
+  .popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6B7280;
+    line-height: 1;
+    padding: 4px;
+  }
+  .popup-close:hover {
+    color: #2D2D2D;
+  }
+  .popup-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  .popup-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #1B4332;
+    margin: 0 0 8px;
+  }
+  .popup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: #6B7280;
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+  .popup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .popup-input {
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  .popup-input:focus {
+    border-color: #1B4332;
+  }
+  .popup-submit {
+    background-color: #1B4332;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .popup-submit:hover {
+    background-color: #143728;
+  }
+  .popup-disclaimer {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-top: 12px;
+  }
+  .popup-success {
+    display: none;
+  }
+  .popup-success.active {
+    display: block;
+  }
+  .popup-form-wrapper.hidden {
+    display: none;
+  }
+  .discount-code {
+    background-color: #F5E6CC;
+    border: 2px dashed #D4A574;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1B4332;
+    letter-spacing: 0.1em;
+  }
+  .shop-link {
+    display: inline-block;
+    background-color: #1B4332;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .shop-link:hover {
+    background-color: #143728;
+  }
+  .success-check {
+    font-size: 48px;
+    margin-bottom: 12px;
+    color: #1B4332;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-content">
+  <h1>PawLux</h1>
+  <p>Elevated Essentials for Your Best Friend</p>
+</div>
+
+<div class="popup-overlay" id="email-popup">
+  <div class="popup-box">
+    <button class="popup-close" id="popup-close-btn">&times;</button>
+
+    <div class="popup-form-wrapper" id="form-wrapper">
+      <div class="popup-icon">&#128062;</div>
+      <h2 class="popup-title">Join the Pack</h2>
+      <p class="popup-text">Get 15% off your first order plus exclusive access to new drops and member-only deals.</p>
+      <form class="popup-form" id="popup-form">
+        <input type="email" class="popup-input" id="email-input" placeholder="Enter your email" required>
+        <button type="submit" class="popup-submit">Get 15% Off</button>
+      </form>
+      <p class="popup-disclaimer">We respect your inbox. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="popup-success" id="success-message">
+      <div class="success-check">&#10003;</div>
+      <h2 class="popup-title">You're In!</h2>
+      <p class="popup-text">Your 15% discount code is ready. Use it at checkout:</p>
+      <div class="discount-code">WELCOME15</div>
+      <p class="popup-text" style="margin-bottom: 0;">This code works on your entire first order.</p>
+      <button type="button" class="shop-link" id="shop-now-btn">Start Shopping</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var overlay = document.getElementById('email-popup');
+    var closeBtn = document.getElementById('popup-close-btn');
+    var form = document.getElementById('popup-form');
+    var formWrapper = document.getElementById('form-wrapper');
+    var successMsg = document.getElementById('success-message');
+    var shopBtn = document.getElementById('shop-now-btn');
+
+    setTimeout(function() {
+      overlay.classList.add('active');
+    }, 2000);
+
+    function closePopup() {
+      overlay.classList.remove('active');
+      setTimeout(function() {
+        formWrapper.classList.remove('hidden');
+        successMsg.classList.remove('active');
+      }, 500);
+    }
+
+    closeBtn.addEventListener('click', closePopup);
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePopup();
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      formWrapper.classList.add('hidden');
+      successMsg.classList.add('active');
+    });
+
+    shopBtn.addEventListener('click', closePopup);
+  })();
+</script>
+
+</body>
+</html>

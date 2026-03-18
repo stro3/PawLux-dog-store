@@ -1,0 +1,137 @@
+<div class="track-order-page">
+  <h1>Track Your Order</h1>
+
+  <section class="track-order-info">
+    <p>Enter your order number and email address to check your shipping status. You can find your order number in the confirmation email we sent when you placed your order.</p>
+  </section>
+
+  <section class="track-order-form-section">
+    <form class="track-order-form" id="track-order-form">
+      <div class="form-group">
+        <label for="order-number">Order Number</label>
+        <input type="text" id="order-number" name="order-number" placeholder="#1001" required>
+      </div>
+      <div class="form-group">
+        <label for="order-email">Email Address</label>
+        <input type="email" id="order-email" name="order-email" placeholder="you@example.com" required>
+      </div>
+      <button type="submit" class="track-btn">Track Order</button>
+    </form>
+  </section>
+
+  <section class="track-order-help">
+    <h2>Need Help?</h2>
+    <div class="help-grid">
+      <div class="help-item">
+        <h3>Where is my tracking number?</h3>
+        <p>Once your order ships, we send a tracking number to your email. Check your inbox and spam folder for an email from PawLux with the subject "Your order has shipped."</p>
+      </div>
+      <div class="help-item">
+        <h3>My tracking shows no updates</h3>
+        <p>Tracking information can take 24–48 hours to update after your order ships. If there are no updates after 5 business days, contact us at <a href="mailto:support@pawlux.com">support@pawlux.com</a>.</p>
+      </div>
+      <div class="help-item">
+        <h3>Estimated delivery times</h3>
+        <p>Standard shipping: 7–14 business days. Express shipping: 3–5 business days. Processing time (1–4 business days) is separate from shipping time.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  .track-order-page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .track-order-page h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #1B4332;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .track-order-info {
+    text-align: center;
+    color: #6B7280;
+    margin-bottom: 32px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .track-order-form {
+    background-color: #F5E6CC;
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: #2D2D2D;
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    border: 2px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+  }
+  .form-group input:focus {
+    border-color: #1B4332;
+  }
+  .track-btn {
+    width: 100%;
+    background-color: #1B4332;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .track-btn:hover {
+    background-color: #143728;
+  }
+  .track-order-help h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    color: #1B4332;
+    margin-bottom: 20px;
+  }
+  .help-grid {
+    display: grid;
+    gap: 20px;
+  }
+  .help-item {
+    background-color: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .help-item h3 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: #1B4332;
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+  .help-item p {
+    color: #6B7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

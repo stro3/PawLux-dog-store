@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PawLux — Premium Dog Accessories & Wellness Products</title>
+<meta name="description" content="Elevated essentials for your best friend. Shop vet-approved dog beds, harnesses, treats, and more. Free shipping on orders over $75.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#1B4332;--secondary:#F5E6CC;--accent:#D4A574;--text:#2D2D2D;--text-light:#6B7280;--white:#FFFFFF;--dark-hover:#143728;--border:#E5E7EB;--radius:12px}
+body{font-family:'Inter',sans-serif;color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Outfit',sans-serif;color:var(--primary)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.announcement{background:var(--primary);color:var(--white);text-align:center;padding:10px 16px;font-size:14px;font-weight:600;letter-spacing:.04em;height:40px;overflow:hidden;position:relative}
+.announcement span{position:absolute;width:100%;left:0;opacity:0;transition:opacity .6s}
+.announcement span.active{opacity:1}
+.header{background:var(--white);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.header-logo{font-family:'Outfit',sans-serif;font-weight:700;font-size:28px;color:var(--primary);cursor:pointer}
+.header-nav{display:flex;gap:28px;align-items:center}
+.header-nav a{font-size:15px;font-weight:500;color:var(--text);transition:color .3s;position:relative}
+.header-nav a:hover{color:var(--primary)}
+.header-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.header-nav a:hover::after{width:100%}
+.header-icons{display:flex;gap:12px}
+.header-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .3s;cursor:pointer;position:relative}
+.header-icon:hover{background:#f3f4f6}
+.cart-count{position:absolute;top:0;right:0;background:var(--accent);color:var(--white);border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:700;display:none;align-items:center;justify-content:center}
+.cart-count.show{display:flex}
+.hero{position:relative;min-height:580px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('/products/images/hero-banner.png') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(27,67,50,.82),rgba(45,106,79,.72))}
+.hero-content{position:relative;z-index:1;max-width:700px;padding:40px 20px}
+.hero h1{font-size:54px;font-weight:700;color:var(--white);margin-bottom:18px;line-height:1.15}
+.hero p{font-size:20px;color:rgba(255,255,255,.88);margin-bottom:36px;line-height:1.6}
+.btn-primary{background:var(--accent);color:var(--white);border:none;border-radius:8px;padding:16px 44px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .3s;display:inline-block}
+.btn-primary:hover{background:#c4956a;transform:translateY(-2px);box-shadow:0 6px 16px rgba(212,165,116,.35)}
+.btn-secondary{background:transparent;color:var(--primary);border:2px solid var(--primary);border-radius:8px;padding:14px 36px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .3s;display:inline-block}
+.btn-secondary:hover{background:var(--primary);color:var(--white)}
+.section{padding:80px 20px;max-width:1200px;margin:0 auto}
+.section-title{text-align:center;font-size:36px;font-weight:700;margin-bottom:12px}
+.section-sub{text-align:center;color:var(--text-light);font-size:16px;margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto}
+.trust-bar{display:flex;justify-content:center;gap:48px;padding:40px 20px;background:var(--white);border-bottom:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-light);font-weight:500}
+.trust-item svg{width:22px;height:22px;stroke:var(--primary);fill:none}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);transition:box-shadow .3s,transform .3s;background:var(--white)}
+.card:hover{box-shadow:0 12px 32px rgba(27,67,50,.12);transform:translateY(-6px)}
+.card-img{height:280px;background:#f9f5f0;position:relative;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .card-img img{transform:scale(1.05)}
+.card-badge{position:absolute;top:12px;left:12px;background:var(--accent);color:var(--white);font-size:11px;font-weight:700;padding:4px 10px;border-radius:4px;text-transform:uppercase;letter-spacing:.06em}
+.card-body{padding:20px}
+.card-body h3{font-size:17px;font-weight:600;margin-bottom:8px;color:var(--text);font-family:'Inter',sans-serif}
+.price-row{display:flex;align-items:center;gap:10px}
+.price-now{font-weight:700;color:var(--primary);font-size:18px}
+.price-was{font-size:14px;color:var(--text-light);text-decoration:line-through}
+.atc-btn{width:100%;background:var(--primary);color:var(--white);border:none;border-radius:8px;padding:12px;font-weight:600;font-size:14px;margin-top:14px;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+.atc-btn:hover{background:var(--dark-hover)}
+.usps-wrap{background:var(--secondary);padding:72px 20px}
+.usps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1100px;margin:0 auto}
+.usp{text-align:center}
+.usp-circle{width:60px;height:60px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.usp-circle svg{width:26px;height:26px;stroke:var(--white);fill:none}
+.usp h3{font-size:18px;margin-bottom:6px}
+.usp p{font-size:14px;color:var(--text-light)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1100px;margin:0 auto}
+.story-img{border-radius:16px;overflow:hidden;height:420px}
+.story-img img{width:100%;height:100%;object-fit:cover}
+.story-text h2{font-size:36px;margin-bottom:16px}
+.story-text p{color:var(--text-light);font-size:16px;margin-bottom:24px;line-height:1.75}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto}
+.cat-card{border-radius:var(--radius);overflow:hidden;position:relative;height:240px;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.cat-card:hover img{transform:scale(1.08)}
+.cat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(27,67,50,.8))}
+.cat-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(27,67,50,.18)}
+.cat-label{position:absolute;bottom:0;left:0;z-index:2;padding:20px;color:var(--white);font-family:'Outfit',sans-serif;font-weight:600;font-size:20px}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.review{background:#FAFAFA;border-radius:var(--radius);padding:32px;border:1px solid var(--border)}
+.review-stars{color:var(--accent);font-size:18px;margin-bottom:14px;letter-spacing:2px}
+.review-text{font-size:15px;color:var(--text);line-height:1.7;margin-bottom:18px;font-style:italic}
+.review-name{font-weight:600;font-size:14px;color:var(--primary)}
+.promise{background:var(--primary);color:var(--white);text-align:center;padding:80px 20px}
+.promise h2{color:var(--white);font-size:36px;margin-bottom:16px}
+.promise p{color:rgba(255,255,255,.85);font-size:18px;max-width:640px;margin:0 auto 28px;line-height:1.7}
+.btn-ghost{background:transparent;color:var(--white);border:2px solid var(--white);border-radius:8px;padding:14px 36px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:all .3s;display:inline-block}
+.btn-ghost:hover{background:var(--white);color:var(--primary)}
+.nl-wrap{background:var(--secondary);text-align:center;padding:80px 20px}
+.nl-wrap h2{font-size:32px;margin-bottom:12px}
+.nl-wrap > p{color:var(--text-light);margin-bottom:28px}
+.nl-form{display:flex;gap:12px;max-width:480px;margin:0 auto}
+.nl-input{flex:1;border:2px solid var(--primary);border-radius:8px;padding:14px 18px;font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .3s}
+.nl-input:focus{border-color:var(--accent)}
+.nl-btn{background:var(--primary);color:var(--white);border:none;border-radius:8px;padding:14px 28px;font-weight:600;font-size:16px;font-family:'Inter',sans-serif;cursor:pointer;transition:background .3s;white-space:nowrap}
+.nl-btn:hover{background:var(--dark-hover)}
+.nl-note{font-size:13px;color:#9CA3AF;margin-top:16px}
+.nl-success{display:none;padding:20px;background:var(--white);border-radius:var(--radius);max-width:420px;margin:0 auto;text-align:center}
+.nl-success.show{display:block}
+.nl-success h3{color:var(--primary);font-size:22px;margin-bottom:8px}
+.nl-code{background:var(--white);border:2px dashed var(--accent);border-radius:8px;padding:14px;margin:16px 0;font-family:'Outfit',sans-serif;font-weight:700;font-size:28px;color:var(--primary);letter-spacing:.1em}
+.footer{background:var(--primary);color:var(--white);padding:60px 40px 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto 40px}
+.footer-brand p{color:rgba(255,255,255,.7);font-size:14px;line-height:1.6;margin-top:12px}
+.footer-col h4{color:var(--white);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px}
+.footer-col a{display:block;color:rgba(255,255,255,.7);font-size:14px;margin-bottom:10px;transition:color .3s}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:24px;text-align:center;font-size:13px;color:rgba(255,255,255,.5);max-width:1100px;margin:0 auto}
+.footer-pay{display:flex;justify-content:center;gap:12px;margin-top:12px}
+.footer-pay span{background:rgba(255,255,255,.12);padding:4px 10px;border-radius:4px;font-size:12px;color:rgba(255,255,255,.7);font-weight:500}
+.popup-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}
+.popup-bg.on{display:flex;opacity:1}
+.popup-card{background:var(--white);border-radius:16px;max-width:420px;width:90%;padding:44px 32px;text-align:center;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.15);transform:translateY(20px);transition:transform .4s}
+.popup-bg.on .popup-card{transform:translateY(0)}
+.popup-x{position:absolute;top:14px;right:14px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--text-light)}
+.popup-x:hover{color:var(--text)}
+.popup-h{font-family:'Outfit',sans-serif;font-weight:700;font-size:22px;color:var(--primary);margin-bottom:6px}
+.popup-p{font-size:14px;color:var(--text-light);margin-bottom:20px;line-height:1.5}
+.popup-f{display:flex;flex-direction:column;gap:10px}
+.popup-in{border:2px solid var(--border);border-radius:8px;padding:12px 14px;font-size:15px;font-family:'Inter',sans-serif;outline:none}
+.popup-in:focus{border-color:var(--primary)}
+.popup-go{background:var(--primary);color:var(--white);border:none;border-radius:8px;padding:13px;font-size:15px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer}
+.popup-go:hover{background:var(--dark-hover)}
+.popup-sm{font-size:11px;color:#9CA3AF;margin-top:10px}
+.popup-ok{display:none}
+.popup-ok.on{display:block}
+.popup-form-wrap.off{display:none}
+.coupon-box{background:var(--secondary);border:2px dashed var(--accent);border-radius:8px;padding:14px;margin:16px 0;font-family:'Outfit',sans-serif;font-weight:700;font-size:26px;color:var(--primary);letter-spacing:.1em}
+.ok-check{font-size:44px;margin-bottom:10px;color:var(--primary)}
+.shop-btn{display:inline-block;background:var(--primary);color:var(--white);border:none;border-radius:8px;padding:12px 28px;font-weight:600;font-size:15px;margin-top:14px;cursor:pointer;transition:background .3s;font-family:'Inter',sans-serif}
+.shop-btn:hover{background:var(--dark-hover)}
+.cart-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9998;display:none;opacity:0;transition:opacity .3s}
+.cart-bg.on{display:block;opacity:1}
+.drawer{position:fixed;top:0;right:-440px;width:420px;max-width:92vw;height:100%;background:var(--white);z-index:10000;box-shadow:-8px 0 30px rgba(0,0,0,.15);transition:right .35s;display:flex;flex-direction:column}
+.drawer.on{right:0}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+.drawer-head h3{font-size:20px;font-weight:700}
+.drawer-x{background:none;border:none;font-size:28px;cursor:pointer;color:var(--text-light);line-height:1}
+.drawer-x:hover{color:var(--text)}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 24px}
+.drawer-empty{text-align:center;padding:60px 0;color:var(--text-light)}
+.drawer-empty span{font-size:48px;display:block;margin-bottom:16px}
+.ci{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #f3f4f6;align-items:flex-start}
+.ci-img{width:72px;height:72px;border-radius:8px;background:#f9f5f0;overflow:hidden;flex-shrink:0}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1}
+.ci-info h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.ci-price{font-size:15px;font-weight:700;color:var(--primary)}
+.ci-qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.ci-qty button{width:28px;height:28px;border:1px solid var(--border);background:var(--white);border-radius:4px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ci-qty button:hover{background:#f3f4f6}
+.ci-qty em{font-style:normal;font-size:14px;font-weight:600;min-width:16px;text-align:center}
+.ci-rm{background:none;border:none;color:#EF4444;font-size:12px;cursor:pointer;margin-top:6px;padding:0}
+.ci-rm:hover{text-decoration:underline}
+.drawer-foot{padding:20px 24px;border-top:1px solid var(--border)}
+.drawer-total{display:flex;justify-content:space-between;font-weight:700;font-size:18px;color:var(--primary);margin-bottom:16px}
+.checkout-btn{width:100%;background:var(--primary);color:var(--white);border:none;border-radius:8px;padding:16px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background .3s}
+.checkout-btn:hover{background:var(--dark-hover)}
+.pay-section{display:none;padding:0 24px 24px}
+.pay-section.on{display:block}
+.pay-section h4{font-size:16px;font-weight:700;color:var(--primary);margin-bottom:16px}
+.pay-row{margin-bottom:14px}
+.pay-row label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.pay-row input{width:100%;border:2px solid var(--border);border-radius:8px;padding:12px;font-size:14px;font-family:'Inter',sans-serif;outline:none}
+.pay-row input:focus{border-color:var(--primary)}
+.pay-split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pay-methods{display:flex;gap:8px;margin-bottom:20px}
+.pay-method{flex:1;border:2px solid var(--border);border-radius:8px;padding:12px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;color:var(--text-light)}
+.pay-method.active{border-color:var(--primary);color:var(--primary);background:rgba(27,67,50,.04)}
+.pay-method:hover{border-color:var(--primary)}
+.pay-coupon{display:flex;gap:8px;margin-bottom:16px}
+.pay-coupon input{flex:1}
+.pay-coupon button{background:var(--accent);color:var(--white);border:none;border-radius:8px;padding:10px 18px;font-weight:600;font-size:13px;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif}
+.pay-discount{color:var(--accent);font-size:14px;font-weight:600;margin-bottom:12px;display:none}
+.pay-discount.on{display:block}
+.order-btn{width:100%;background:var(--primary);color:var(--white);border:none;border-radius:10px;padding:18px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:all .3s;letter-spacing:.02em}
+.order-btn:hover{background:var(--dark-hover);box-shadow:0 4px 12px rgba(27,67,50,.25)}
+.toast{position:fixed;top:80px;right:20px;background:var(--primary);color:var(--white);padding:14px 24px;border-radius:8px;font-weight:600;font-size:14px;z-index:9997;box-shadow:0 4px 12px rgba(0,0,0,.15);transform:translateX(140%);transition:transform .3s}
+.toast.on{transform:translateX(0)}
+.search-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:10001;display:none;align-items:flex-start;justify-content:center;padding-top:100px}
+.search-bg.on{display:flex}
+.search-card{background:var(--white);border-radius:var(--radius);padding:24px;width:560px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.search-card input{width:100%;border:2px solid var(--border);border-radius:8px;padding:16px 20px;font-size:18px;font-family:'Inter',sans-serif;outline:none}
+.search-card input:focus{border-color:var(--primary)}
+.search-card p{margin-top:12px;font-size:14px;color:var(--text-light);text-align:center}
+.btt{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--primary);color:var(--white);border:none;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);z-index:99;transition:transform .3s}
+.btt.on{display:flex}
+.btt:hover{transform:scale(1.1)}
+@media(max-width:768px){
+  .header{padding:12px 16px}
+  .header-nav{display:none}
+  .hero{min-height:420px}
+  .hero h1{font-size:32px}
+  .hero p{font-size:16px}
+  .grid-3{grid-template-columns:1fr}
+  .usps-grid{grid-template-columns:repeat(2,1fr);gap:20px}
+  .story-grid{grid-template-columns:1fr;gap:24px}
+  .cat-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .reviews-grid{grid-template-columns:1fr}
+  .nl-form{flex-direction:column}
+  .footer-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+  .trust-bar{flex-wrap:wrap;gap:20px}
+  .section{padding:48px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="announcement" id="ann">
+  <span class="active">FREE SHIPPING on orders over $75</span>
+  <span>30-Day Money-Back Guarantee on All Products</span>
+  <span>Vet-Approved Essentials for Your Best Friend</span>
+</div>
+
+<header class="header" id="top">
+  <div class="header-logo" id="logo">PawLux</div>
+  <nav class="header-nav">
+    <a href="#products">Shop All</a>
+    <a href="#products">Best Sellers</a>
+    <a href="#categories">Collections</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-icons">
+    <div class="header-icon" id="si"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+    <div class="header-icon" id="ci-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-count" id="cc">0</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Elevated Essentials for Your Best Friend</h1>
+    <p>Premium dog accessories and wellness products designed for comfort, safety, and style.</p>
+    <a href="#products" class="btn-primary">Shop Collection</a>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><span>Free Shipping Over $75</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Secure Checkout</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Vet Approved</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg><span>30-Day Guarantee</span></div>
+</div>
+
+<div class="section" id="products">
+  <h2 class="section-title">Best Sellers</h2>
+  <p class="section-sub">Our most popular products, loved by thousands of dog owners.</p>
+  <div class="grid-3">
+    <div class="card" data-name="Orthopedic Memory Foam Dog Bed" data-price="89.99" data-img="/products/images/orthopedic-memory-foam-dog-bed.png">
+      <div class="card-img"><img src="/products/images/orthopedic-memory-foam-dog-bed.png" alt="Orthopedic Memory Foam Dog Bed"><span class="card-badge">Best Seller</span></div>
+      <div class="card-body"><h3>Orthopedic Memory Foam Dog Bed</h3><div class="price-row"><span class="price-now">$89.99</span><span class="price-was">$129.99</span></div><button class="atc-btn">Add to Cart</button></div>
+    </div>
+    <div class="card" data-name="Adjustable No-Pull Dog Harness" data-price="34.99" data-img="/products/images/adjustable-no-pull-dog-harness.png">
+      <div class="card-img"><img src="/products/images/adjustable-no-pull-dog-harness.png" alt="Adjustable No-Pull Dog Harness"><span class="card-badge">Best Seller</span></div>
+      <div class="card-body"><h3>Adjustable No-Pull Dog Harness</h3><div class="price-row"><span class="price-now">$34.99</span><span class="price-was">$49.99</span></div><button class="atc-btn">Add to Cart</button></div>
+    </div>
+    <div class="card" data-name="Natural Calming Dog Treats — 60ct" data-price="24.99" data-img="/products/images/natural-calming-dog-treats.png">
+      <div class="card-img"><img src="/products/images/natural-calming-dog-treats.png" alt="Natural Calming Dog Treats"></div>
+      <div class="card-body"><h3>Natural Calming Dog Treats — 60ct</h3><div class="price-row"><span class="price-now">$24.99</span><span class="price-was">$34.99</span></div><button class="atc-btn">Add to Cart</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="usps-wrap">
+  <h2 class="section-title">The PawLux Difference</h2>
+  <p class="section-sub">Why thousands of dog owners trust us with their best friend.</p>
+  <div class="usps-grid">
+    <div class="usp"><div class="usp-circle"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3>Free Shipping</h3><p>On all orders over $75. No minimums on subscriptions.</p></div>
+    <div class="usp"><div class="usp-circle"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Vet Approved</h3><p>Every product reviewed and approved by licensed veterinarians.</p></div>
+    <div class="usp"><div class="usp-circle"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><h3>30-Day Returns</h3><p>Not satisfied? Return any unused item within 30 days for a full refund.</p></div>
+    <div class="usp"><div class="usp-circle"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Premium Quality</h3><p>Durable, non-toxic materials built to last through years of play.</p></div>
+  </div>
+</div>
+
+<div class="section" id="about">
+  <div class="story-grid">
+    <div class="story-img"><img src="/products/images/categories/beds.png" alt="PawLux Story"></div>
+    <div class="story-text">
+      <h2>Why PawLux?</h2>
+      <p>Every product in our collection is selected for one reason: your dog deserves better. We partner with veterinarians, test every material, and stand behind every product with our 30-day guarantee. No fillers. No shortcuts. Just thoughtfully designed essentials that make life better for your best friend.</p>
+      <a href="#products" class="btn-secondary">Shop Now</a>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="categories">
+  <h2 class="section-title">Shop by Category</h2>
+  <p class="section-sub">Find exactly what your dog needs.</p>
+  <div class="cat-grid">
+    <div class="cat-card"><img src="/products/images/categories/beds.png" alt="Beds"><span class="cat-label">Beds & Furniture</span></div>
+    <div class="cat-card"><img src="/products/images/categories/walking.png" alt="Walking"><span class="cat-label">Walking Gear</span></div>
+    <div class="cat-card"><img src="/products/images/categories/treats.png" alt="Treats"><span class="cat-label">Treats & Wellness</span></div>
+    <div class="cat-card"><img src="/products/images/categories/apparel.png" alt="Apparel"><span class="cat-label">Apparel</span></div>
+    <div class="cat-card"><img src="/products/images/categories/toys.png" alt="Toys"><span class="cat-label">Toys & Enrichment</span></div>
+    <div class="cat-card"><img src="/products/images/hero-banner.png" alt="All"><span class="cat-label">Shop All</span></div>
+  </div>
+</div>
+
+<div class="section" style="padding-bottom:40px">
+  <h2 class="section-title">More to Love</h2>
+  <p class="section-sub">Explore the rest of our collection.</p>
+  <div class="grid-3">
+    <div class="card" data-name="Waterproof Dog Jacket" data-price="44.99" data-img="/products/images/waterproof-dog-jacket.png">
+      <div class="card-img"><img src="/products/images/waterproof-dog-jacket.png" alt="Waterproof Dog Jacket"></div>
+      <div class="card-body"><h3>Waterproof Dog Jacket — All Seasons</h3><div class="price-row"><span class="price-now">$44.99</span><span class="price-was">$64.99</span></div><button class="atc-btn">Add to Cart</button></div>
+    </div>
+    <div class="card" data-name="Interactive Puzzle Feeder Bowl" data-price="29.99" data-img="/products/images/interactive-puzzle-feeder-bowl.png">
+      <div class="card-img"><img src="/products/images/interactive-puzzle-feeder-bowl.png" alt="Interactive Puzzle Feeder Bowl"></div>
+      <div class="card-body"><h3>Interactive Puzzle Feeder Bowl</h3><div class="price-row"><span class="price-now">$29.99</span><span class="price-was">$39.99</span></div><button class="atc-btn">Add to Cart</button></div>
+    </div>
+    <div class="card" data-name="Calming Treats — Subscribe & Save" data-price="22.49" data-img="/products/images/natural-calming-dog-treats.png">
+      <div class="card-img"><img src="/products/images/natural-calming-dog-treats.png" alt="Calming Treats"><span class="card-badge">Save 10%</span></div>
+      <div class="card-body"><h3>Calming Treats — Subscribe & Save</h3><div class="price-row"><span class="price-now">$22.49</span><span class="price-was">$24.99</span></div><button class="atc-btn">Subscribe Now</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="background:var(--white)">
+  <h2 class="section-title">What Dog Parents Say</h2>
+  <p class="section-sub">Real reviews from real customers.</p>
+  <div class="reviews-grid">
+    <div class="review"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"The orthopedic bed changed my senior dog's life. She actually jumps up in the morning now instead of struggling. Worth every penny."</p><p class="review-name">Sarah M. — Verified Buyer</p></div>
+    <div class="review"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"Finally a harness that actually stops pulling. My golden used to drag me everywhere. Two walks in and the difference was night and day."</p><p class="review-name">James K. — Verified Buyer</p></div>
+    <div class="review"><div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="review-text">"The calming treats are the only thing that works for my rescue during thunderstorms. I keep two bags on hand at all times."</p><p class="review-name">Priya R. — Verified Buyer</p></div>
+  </div>
+</div>
+
+<div class="promise">
+  <h2>Our Promise to You</h2>
+  <p>Every PawLux product is vet-approved, rigorously tested, and backed by our 30-day money-back guarantee. If your dog is not happy, neither are we.</p>
+  <button class="btn-ghost" id="promise-btn">Learn More</button>
+</div>
+
+<div class="nl-wrap" id="newsletter">
+  <h2>Join the Pack</h2>
+  <p>Get an exclusive discount code sent to your email. Plus, early access to new drops and member-only deals.</p>
+  <form class="nl-form" id="nl-form">
+    <input type="email" class="nl-input" id="nl-email" placeholder="Enter your email" required>
+    <button type="submit" class="nl-btn">Get My Code</button>
+  </form>
+  <p class="nl-note" id="nl-note">We respect your inbox. Unsubscribe anytime.</p>
+  <div class="nl-success" id="nl-ok">
+    <h3>Your Exclusive Code</h3>
+    <p class="popup-p">Use this at checkout for 15% off your entire first order:</p>
+    <div class="nl-code" id="nl-code">PAWLUX-XXXX</div>
+    <p style="font-size:13px;color:var(--text-light)">This code has been saved. Valid for 30 days.</p>
+  </div>
+</div>
+
+<footer class="footer" id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="font-family:'Outfit',sans-serif;font-weight:700;font-size:24px;color:var(--white)">PawLux</div>
+      <p>Elevated essentials for your best friend. Premium dog accessories and wellness products designed for comfort, safety, and style.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><a href="#products">Shop All</a><a href="#products">Best Sellers</a><a href="#categories">Collections</a></div>
+    <div class="footer-col"><h4>Help</h4><a href="#">Contact Us</a><a href="#">FAQ</a><a href="#">Track Your Order</a></div>
+    <div class="footer-col"><h4>Policies</h4><a href="#">Shipping & Returns</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 PawLux. All rights reserved.</span>
+    <div class="footer-pay"><span>Visa</span><span>Mastercard</span><span>Amex</span><span>PayPal</span><span>Apple Pay</span><span>Google Pay</span></div>
+  </div>
+</footer>
+
+<div class="popup-bg" id="popup">
+  <div class="popup-card">
+    <button class="popup-x" id="px">&times;</button>
+    <div class="popup-form-wrap" id="pfw">
+      <div style="font-size:36px;margin-bottom:12px">&#128062;</div>
+      <h2 class="popup-h">Join the Pack</h2>
+      <p class="popup-p">Get a unique discount code for 15% off your first order.</p>
+      <form class="popup-f" id="pf">
+        <input type="email" class="popup-in" id="pe" placeholder="Enter your email" required>
+        <button type="submit" class="popup-go">Get My Discount Code</button>
+      </form>
+      <p class="popup-sm">We respect your inbox. Unsubscribe anytime.</p>
+    </div>
+    <div class="popup-ok" id="pok">
+      <div class="ok-check">&#10003;</div>
+      <h2 class="popup-h">You're In!</h2>
+      <p class="popup-p">Your unique 15% discount code:</p>
+      <div class="coupon-box" id="pc">PAWLUX-XXXX</div>
+      <p style="font-size:13px;color:var(--text-light);margin-bottom:0">Valid for 30 days. One use per customer.</p>
+      <button type="button" class="shop-btn" id="ps">Start Shopping</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart-bg" id="cbg"></div>
+<div class="drawer" id="dw">
+  <div class="drawer-head"><h3>Your Cart</h3><button class="drawer-x" id="dx">&times;</button></div>
+  <div class="drawer-body" id="db"><div class="drawer-empty"><span>&#128722;</span><p>Your cart is empty</p></div></div>
+  <div class="drawer-foot" id="df" style="display:none">
+    <div class="drawer-total"><span>Subtotal</span><span id="dt">$0.00</span></div>
+    <button class="checkout-btn" id="co-btn">Proceed to Checkout</button>
+  </div>
+  <div class="pay-section" id="pay">
+    <h4>Checkout</h4>
+    <div class="pay-coupon">
+      <input type="text" id="coupon-in" placeholder="Discount code">
+      <button id="coupon-btn">Apply</button>
+    </div>
+    <div class="pay-discount" id="pay-disc">-15% discount applied</div>
+    <div class="pay-methods">
+      <div class="pay-method active" data-m="card">Card</div>
+      <div class="pay-method" data-m="paypal">PayPal</div>
+      <div class="pay-method" data-m="apple">Apple Pay</div>
+    </div>
+    <div id="card-fields">
+      <div class="pay-row"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+      <div class="pay-row"><label>Card Number</label><input type="text" placeholder="4242 4242 4242 4242" maxlength="19"></div>
+      <div class="pay-split">
+        <div class="pay-row"><label>Expiry</label><input type="text" placeholder="MM/YY" maxlength="5"></div>
+        <div class="pay-row"><label>CVC</label><input type="text" placeholder="123" maxlength="4"></div>
+      </div>
+      <div class="pay-row"><label>Name on Card</label><input type="text" placeholder="Full name"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-weight:700;font-size:18px;color:var(--primary);margin:20px 0 16px"><span>Total</span><span id="pay-total">$0.00</span></div>
+    <button class="order-btn" id="order-btn">Place Order</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">Added to cart</div>
+
+<div class="search-bg" id="sbg">
+  <div class="search-card">
+    <input type="text" placeholder="Search products..." id="sin">
+    <p>Try: dog bed, harness, treats, jacket, puzzle feeder</p>
+  </div>
+</div>
+
+<button class="btt" id="btt"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<script>
+(function(){
+var cart=[], couponUsed=null;
+
+var msgs=document.querySelectorAll('#ann span'),mi=0;
+setInterval(function(){msgs[mi].classList.remove('active');mi=(mi+1)%msgs.length;msgs[mi].classList.add('active')},3500);
+
+function genCode(){return 'PAWLUX-'+(Math.random().toString(36).substring(2,6).toUpperCase())}
+
+var popup=document.getElementById('popup'),px=document.getElementById('px');
+var pf=document.getElementById('pf'),pfw=document.getElementById('pfw');
+var pok=document.getElementById('pok'),pc=document.getElementById('pc'),ps=document.getElementById('ps');
+setTimeout(function(){popup.classList.add('on')},3000);
+function closePopup(){popup.classList.remove('on');setTimeout(function(){pfw.classList.remove('off');pok.classList.remove('on')},500)}
+px.addEventListener('click',closePopup);
+popup.addEventListener('click',function(e){if(e.target===popup)closePopup()});
+pf.addEventListener('submit',function(e){e.preventDefault();var code=genCode();pc.textContent=code;couponUsed=code;pfw.classList.add('off');pok.classList.add('on')});
+ps.addEventListener('click',closePopup);
+
+var dw=document.getElementById('dw'),cbg=document.getElementById('cbg');
+var db=document.getElementById('db'),df=document.getElementById('df'),dt=document.getElementById('dt');
+var cc=document.getElementById('cc'),toast=document.getElementById('toast');
+var paySection=document.getElementById('pay'),payTotal=document.getElementById('pay-total');
+var payDisc=document.getElementById('pay-disc');
+function openCart(){dw.classList.add('on');cbg.classList.add('on')}
+function closeCart(){dw.classList.remove('on');cbg.classList.remove('on');paySection.classList.remove('on')}
+document.getElementById('ci-btn').addEventListener('click',openCart);
+document.getElementById('dx').addEventListener('click',closeCart);
+cbg.addEventListener('click',closeCart);
+
+function flash(t){toast.textContent=t;toast.classList.add('on');setTimeout(function(){toast.classList.remove('on')},2000)}
+
+var discountApplied=false;
+function calcTotal(){var t=0;cart.forEach(function(c){t+=c.price*c.qty});return t}
+function calcFinal(){var t=calcTotal();if(discountApplied)t=t*0.85;return t}
+
+function renderCart(){
+  var n=0;cart.forEach(function(c){n+=c.qty});
+  if(n>0){cc.textContent=n;cc.classList.add('show')}else{cc.classList.remove('show')}
+  var h='';
+  if(!cart.length){h='<div class="drawer-empty"><span>&#128722;</span><p>Your cart is empty</p></div>';df.style.display='none';paySection.classList.remove('on')}
+  else{
+    cart.forEach(function(c,i){
+      h+='<div class="ci"><div class="ci-img"><img src="'+c.img+'" alt="'+c.name+'"></div>';
+      h+='<div class="ci-info"><h4>'+c.name+'</h4><div class="ci-price">$'+c.price.toFixed(2)+'</div>';
+      h+='<div class="ci-qty"><button data-a="m" data-i="'+i+'">-</button><em>'+c.qty+'</em><button data-a="p" data-i="'+i+'">+</button></div>';
+      h+='<button class="ci-rm" data-a="r" data-i="'+i+'">Remove</button></div></div>';
+    });
+    df.style.display='block';
+  }
+  db.innerHTML=h;dt.textContent='$'+calcTotal().toFixed(2);
+  payTotal.textContent='$'+calcFinal().toFixed(2);
+  db.querySelectorAll('[data-a]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var a=this.getAttribute('data-a'),i=+this.getAttribute('data-i');
+      if(a==='p')cart[i].qty++;
+      if(a==='m'){cart[i].qty--;if(cart[i].qty<=0)cart.splice(i,1)}
+      if(a==='r')cart.splice(i,1);
+      renderCart();
+    });
+  });
+}
+
+document.querySelectorAll('.atc-btn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var c=this.closest('.card');
+    var nm=c.getAttribute('data-name'),pr=parseFloat(c.getAttribute('data-price')),im=c.getAttribute('data-img');
+    var f=false;cart.forEach(function(x){if(x.name===nm){x.qty++;f=true}});
+    if(!f)cart.push({name:nm,price:pr,img:im,qty:1});
+    renderCart();flash(nm.split(' ').slice(0,3).join(' ')+' added');
+    this.textContent='Added!';this.style.background='#D4A574';
+    var btn=this;setTimeout(function(){btn.textContent='Add to Cart';btn.style.background=''},1500);
+  });
+});
+
+document.getElementById('co-btn').addEventListener('click',function(){
+  paySection.classList.add('on');
+  payTotal.textContent='$'+calcFinal().toFixed(2);
+  dw.scrollTo({top:dw.scrollHeight,behavior:'smooth'});
+});
+
+document.querySelectorAll('.pay-method').forEach(function(m){
+  m.addEventListener('click',function(){
+    document.querySelectorAll('.pay-method').forEach(function(x){x.classList.remove('active')});
+    this.classList.add('active');
+    document.getElementById('card-fields').style.display=this.getAttribute('data-m')==='card'?'block':'none';
+  });
+});
+
+document.getElementById('coupon-btn').addEventListener('click',function(){
+  var v=document.getElementById('coupon-in').value.trim();
+  if(v && v.toUpperCase().indexOf('PAWLUX')===0){
+    discountApplied=true;payDisc.classList.add('on');payDisc.textContent='-15% discount applied ('+v+')';
+    payTotal.textContent='$'+calcFinal().toFixed(2);
+  }else if(v.toUpperCase()==='WELCOME15'){
+    discountApplied=true;payDisc.classList.add('on');payDisc.textContent='-15% discount applied (WELCOME15)';
+    payTotal.textContent='$'+calcFinal().toFixed(2);
+  }else{alert('Invalid coupon code. Try the code from your email signup.')}
+});
+
+document.getElementById('order-btn').addEventListener('click',function(){
+  if(!cart.length){alert('Your cart is empty.');return}
+  var total=calcFinal().toFixed(2);
+  alert('Order placed! Total: $'+total+'\n\nOn a live Shopify store, this would redirect to the secure Shopify checkout.\n\nThank you for shopping with PawLux!');
+  cart=[];discountApplied=false;renderCart();closeCart();
+});
+
+var nlForm=document.getElementById('nl-form'),nlOk=document.getElementById('nl-ok');
+var nlNote=document.getElementById('nl-note'),nlCode=document.getElementById('nl-code');
+nlForm.addEventListener('submit',function(e){
+  e.preventDefault();
+  var code=genCode();nlCode.textContent=code;
+  nlForm.style.display='none';nlNote.style.display='none';nlOk.classList.add('show');
+});
+
+var sbg=document.getElementById('sbg');
+document.getElementById('si').addEventListener('click',function(){sbg.classList.add('on');setTimeout(function(){document.getElementById('sin').focus()},100)});
+sbg.addEventListener('click',function(e){if(e.target===sbg)sbg.classList.remove('on')});
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){sbg.classList.remove('on');closeCart();closePopup()}});
+
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){var h=this.getAttribute('href');if(h==='#'){e.preventDefault();return}e.preventDefault();var t=document.querySelector(h);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})});
+});
+document.querySelectorAll('.cat-card').forEach(function(c){c.addEventListener('click',function(){document.getElementById('products').scrollIntoView({behavior:'smooth'})})});
+document.getElementById('promise-btn').addEventListener('click',function(){document.getElementById('about').scrollIntoView({behavior:'smooth'})});
+document.getElementById('logo').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+var btt=document.getElementById('btt');
+window.addEventListener('scroll',function(){btt.classList.toggle('on',window.scrollY>600)});
+btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="sticky-atc" id="sticky-add-to-cart">
+  <div class="sticky-atc__info">
+    <span class="sticky-atc__title" id="sticky-atc-title"></span>
+    <span class="sticky-atc__price" id="sticky-atc-price"></span>
+  </div>
+  <button class="sticky-atc__button" id="sticky-atc-btn" type="button">Add to Cart</button>
+</div>
+
+<script>
+  (function() {
+    var stickyBar = document.getElementById('sticky-add-to-cart');
+    var productForm = document.querySelector('.product-form');
+    var productTitle = document.querySelector('.product__title h1');
+    var productPrice = document.querySelector('.price-item--regular, .price-item--sale');
+
+    if (!productForm || !productTitle || !stickyBar) return;
+
+    var titleEl = document.getElementById('sticky-atc-title');
+    var priceEl = document.getElementById('sticky-atc-price');
+
+    titleEl.textContent = productTitle.textContent.trim();
+    if (productPrice) {
+      priceEl.textContent = productPrice.textContent.trim();
+    }
+
+    var btn = document.getElementById('sticky-atc-btn');
+    btn.addEventListener('click', function() {
+      var submitBtn = productForm.querySelector('[type="submit"]');
+      if (submitBtn) submitBtn.click();
+    });
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          stickyBar.classList.remove('visible');
+        } else {
+          stickyBar.classList.add('visible');
+        }
+      });
+    }, { threshold: 0 });
+
+    observer.observe(productForm);
+  })();
+</script>

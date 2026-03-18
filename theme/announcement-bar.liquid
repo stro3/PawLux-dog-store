@@ -1,0 +1,51 @@
+<div class="announcement-bar-custom">
+  <div class="announcement-bar__container">
+    <div class="announcement-bar__messages" id="announcement-messages">
+      <span class="announcement-bar__msg active">FREE SHIPPING on orders over $75</span>
+      <span class="announcement-bar__msg">30-Day Money-Back Guarantee</span>
+      <span class="announcement-bar__msg">Vet-Approved Products Only</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .announcement-bar-custom {
+    background-color: #1B4332;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    overflow: hidden;
+    position: relative;
+  }
+  .announcement-bar__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    height: 20px;
+  }
+  .announcement-bar__msg {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .announcement-bar__msg.active {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  (function() {
+    var msgs = document.querySelectorAll('.announcement-bar__msg');
+    var idx = 0;
+    setInterval(function() {
+      msgs[idx].classList.remove('active');
+      idx = (idx + 1) % msgs.length;
+      msgs[idx].classList.add('active');
+    }, 3500);
+  })();
+</script>
